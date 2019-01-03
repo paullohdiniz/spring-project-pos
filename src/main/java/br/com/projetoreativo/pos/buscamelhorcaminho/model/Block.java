@@ -27,7 +27,6 @@ public class Block {
 	@NotBlank
 	private String data; 
 	
-	@NotBlank
 	public String hash;
 
 	public long getId() {

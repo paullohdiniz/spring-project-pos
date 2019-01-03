@@ -24,9 +24,14 @@ public class NoobChain {
 	public static int difficulty = 3;
 
 	private ManagerBlock managerBlock = new ManagerBlock();
-
-	@PostMapping
-	public Block adiciona(@Valid @RequestBody Block block) {
+	
+	@GetMapping("/home")
+	public String homeInit() {
+	    return "home";
+	}
+	
+	@PostMapping(path = "/adiciona", consumes = "application/json", produces = "application/json")
+	public Block adiciona(@RequestBody Block block) {
 		return managerBlock.save(block, difficulty);
 	}
 

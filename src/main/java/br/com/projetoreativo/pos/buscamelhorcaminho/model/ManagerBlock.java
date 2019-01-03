@@ -14,6 +14,7 @@ public class ManagerBlock {
 	private String data;
 	public String hash;
 	private int nonce;
+	private long timeStamp;
 
 	@Autowired
 	private Blocks blocks;
@@ -45,18 +46,22 @@ public class ManagerBlock {
 
 	public Block save(Block block, final int difficulty) {
 
-		previousHash = ((Block) blocks.getOne(block.getId() - 1)).getHash();
-
-		previousHash = (previousHash == "") ? "0" : previousHash;
+		if(block.getId() == 0)
+			previousHash = "0";
+		else
+			previousHash = ((Block) blocks.getOne(block.getId() - 1)).getHash();
 
 		block.setPreviousHash(previousHash);
 		
 		data = block.getData();
+		this.timeStamp = new Date().getTime();
+		
+		this.hash = calculateHash();
 		
 		mineBlock(difficulty);
 
-		if (hash != null) {
-			block.setHash(hash);
+		if (this.hash != null) {
+			block.setHash(this.hash);
 		}
 
 		return blocks.save(block);
