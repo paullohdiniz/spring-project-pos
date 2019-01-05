@@ -1,11 +1,7 @@
 package br.com.projetoreativo.pos.buscamelhorcaminho.model;
 
 import java.util.Date;
-import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import br.com.projetoreativo.pos.buscamelhorcaminho.repository.Blocks;
 import br.com.projetoreativo.pos.buscamelhorcaminho.util.StringUtil;
 
 public class ManagerBlock {
