@@ -26,7 +26,6 @@ public class ManagerBlock {
 		return calculatedhash;
 	}
 
-	// Increases nonce value until hash target is reached.
 	public void mineBlock(int difficulty) {
 		String target = StringUtil.getDificultyString(difficulty); // Create a
 																	// string

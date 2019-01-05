@@ -27,6 +27,16 @@ Baixar o projeto Spring Boot + JPA + WEB + PostgreSQL - [GitHub](https://github.
 Baixar CLI do Heroku - [HEROKU](https://devcenter.heroku.com/articles/heroku-cli)
 
 ### Implementação
+	
+	O objetivo dessa é implementação é desenvolver um API de Block Chain que fará a inserção dos 
+	dos blocos segundo critério estabelecidos do conceito, e a validação dos blocos, na suas minerações.
+	
+	Criação da classe de Domain
+	- Block
+		- id
+		- data
+		- hash
+		- previousHash
 
 ### Publicação na nuvem com HEROKU
 

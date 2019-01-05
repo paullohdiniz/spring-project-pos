@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 /**
  * Paulo Diniz
  * 02-01-2019
- * Entidade representa banco de dados
+ * Entidade representa Block Chair no banco de dados
  */
 @Entity
 public class Block {
