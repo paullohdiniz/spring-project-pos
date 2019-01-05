@@ -29,7 +29,9 @@ Baixar CLI do Heroku - [HEROKU](https://devcenter.heroku.com/articles/heroku-cli
 ### Implementação
 	
 	O objetivo dessa é implementação é desenvolver um API de Block Chain que fará a inserção dos 
-	dos blocos segundo critério estabelecidos do conceito, e a validação dos blocos, na suas minerações.
+	dos blocos segundo critério estabelecidos do conceito.
+	
+	Além disso, após haverá um serviço que poderá consultar os blocos e poderá minerar para validar sua integridade dentro do bloco.
 	
 	Criação da classe de Domain
 	- Block
@@ -37,6 +39,9 @@ Baixar CLI do Heroku - [HEROKU](https://devcenter.heroku.com/articles/heroku-cli
 		- data
 		- hash
 		- previousHash
+	- BlockList
+		- id
+		- nome
 
 ### Publicação na nuvem com HEROKU
 
