@@ -15,9 +15,6 @@ public class ManagerBlock {
 	public String hash;
 	private int nonce;
 
-	@Autowired
-	private Blocks blocks;
-
 	public ManagerBlock() {
 
 	}
@@ -45,26 +42,23 @@ public class ManagerBlock {
 
 	public Block save(Block block, final int difficulty) {
 
-		previousHash = ((Block) blocks.getOne(block.getId() - 1)).getHash();
-
-		previousHash = (previousHash == "") ? "0" : previousHash;
-
-		block.setPreviousHash(previousHash);
-		
 		data = block.getData();
+		previousHash = block.getPreviousHash();
+		this.hash = calculateHash();
 		
 		mineBlock(difficulty);
 
-		if (hash != null) {
-			block.setHash(hash);
+		if (this.hash != null) {
+			block.setHash(this.hash);
 		}
-
-		return blocks.save(block);
+		
+		return block;
+		
 	}
 
-	public List<Block> listar() {
-		return blocks.findAll();
-	}
+//	public List<Block> listar() {
+//		return blocks.findAll();
+//	}
 	
 //	public static Boolean isChainValid() {
 //		Block currentBlock; 

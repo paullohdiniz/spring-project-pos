@@ -1,8 +1,12 @@
 package br.com.projetoreativo.pos.buscamelhorcaminho.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -16,25 +20,34 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Block {
 	
+	public Block(){
+		
+	}
+	
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")
-	private long id;
+	private Integer id;
 	
 	@NotBlank
-	public String previousHash; 
+	private String previousHash; 
 	
 	@NotBlank
 	private String data; 
 	
 	@NotBlank
-	public String hash;
+	private String hash;
+	
+//	@ManyToOne(cascade = CascadeType.PERSIST)
+//	@JoinColumn(name="global_config_id")
+//	private BlockList blockList;
+//	
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -61,6 +74,14 @@ public class Block {
 	public void setHash(String hash) {
 		this.hash = hash;
 	}
+
+//	public BlockList getBlockList() {
+//		return blockList;
+//	}
+//
+//	public void setBlockList(BlockList blockList) {
+//		this.blockList = blockList;
+//	}
 
 	@Override
 	public int hashCode() {
@@ -100,6 +121,12 @@ public class Block {
 		} else if (!previousHash.equals(other.previousHash))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Block [id=" + id + ", previousHash=" + previousHash + ", data=" + data + ", hash=" + hash
+				+ "]";
 	}
 	
 	
