@@ -42,7 +42,17 @@ public class NoobChain {
 	@Autowired
 	private BlocksList blocksListPrinc;
 
-	
+	@PostMapping(path = "/blockchair/valida", consumes = "application/json", produces = "application/json")
+	public ResponseEntity valida(@RequestBody BlockList blocksList) {
+		
+		Optional<BlockList> block = blocksListPrinc.findById(blocksList.getId());
+		boolean isValido = managerBlock.isChainValid(block.get().getBlocks(), difficulty);
+		
+		if(isValido)
+			return ResponseEntity.ok(HttpStatus.OK);
+		else
+			return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+	}
 	@PostMapping(path = "/blockchair", consumes = "application/json", produces = "application/json")
 	public ResponseEntity adiciona(@RequestBody List<Block> blocksList) {
 

@@ -38,10 +38,20 @@ public class Block {
 	@NotBlank
 	private String hash;
 	
+	private Long dateTime;
+	
 //	@ManyToOne(cascade = CascadeType.PERSIST)
 //	@JoinColumn(name="global_config_id")
 //	private BlockList blockList;
 //	
+
+	public Long getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(Long dateTime) {
+		this.dateTime = dateTime;
+	}
 
 	public Integer getId() {
 		return id;
@@ -75,21 +85,14 @@ public class Block {
 		this.hash = hash;
 	}
 
-//	public BlockList getBlockList() {
-//		return blockList;
-//	}
-//
-//	public void setBlockList(BlockList blockList) {
-//		this.blockList = blockList;
-//	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((data == null) ? 0 : data.hashCode());
+		result = prime * result + ((dateTime == null) ? 0 : dateTime.hashCode());
 		result = prime * result + ((hash == null) ? 0 : hash.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((previousHash == null) ? 0 : previousHash.hashCode());
 		return result;
 	}
@@ -108,12 +111,20 @@ public class Block {
 				return false;
 		} else if (!data.equals(other.data))
 			return false;
+		if (dateTime == null) {
+			if (other.dateTime != null)
+				return false;
+		} else if (!dateTime.equals(other.dateTime))
+			return false;
 		if (hash == null) {
 			if (other.hash != null)
 				return false;
 		} else if (!hash.equals(other.hash))
 			return false;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (previousHash == null) {
 			if (other.previousHash != null)
@@ -126,8 +137,16 @@ public class Block {
 	@Override
 	public String toString() {
 		return "Block [id=" + id + ", previousHash=" + previousHash + ", data=" + data + ", hash=" + hash
-				+ "]";
+				+ ", dateTime=" + dateTime + "]";
 	}
-	
-	
+
+//	public BlockList getBlockList() {
+//		return blockList;
+//	}
+//
+//	public void setBlockList(BlockList blockList) {
+//		this.blockList = blockList;
+//	}
+
+		
 }
