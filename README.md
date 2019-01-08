@@ -3,7 +3,7 @@
 ![GitHub Logo](/images/spring.png)
 
 ## Desenvolvido por Paulo Diniz como Prova de Conceito (POC) para artigo de cunho científico TCC em Arquitetura de Software. 
-[linkedin](https://www.linkedin.com/in/paullohdiniz/)
+[LINKEDIN](https://www.linkedin.com/in/paullohdiniz/)
 
 Projetos com intuito de simulação de performance com diferentes arquiteturas orientado à eventos.
 
