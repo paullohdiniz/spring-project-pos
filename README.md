@@ -1,5 +1,7 @@
 # PROJETO-REATIVO-POS
 
+![GitHub Logo](/images/spring.png)
+
 ## Desenvolvido por Paulo Diniz como Prova de Conceito (POC) para artigo de cunho científico TCC em Arquitetura de Software. 
 [linkedin](https://www.linkedin.com/in/paullohdiniz/)
 

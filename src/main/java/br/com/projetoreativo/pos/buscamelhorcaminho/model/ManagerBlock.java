@@ -17,11 +17,13 @@ public class ManagerBlock {
 	}
 
 	// Calculate new hash based on blocks contents
-	public String calculateHash(Block block) {
+	public String calculateHash(Block block, boolean isValida) {
 		
-		block.setDateTime(new Date().getTime());
+		if(!isValida)
+			block.setDateTime(new Date().getTime());
+		
 		String calculatedhash = StringUtil
-				.applySha256(block.getPreviousHash() + Long.toString(block.getDateTime()) + Integer.toString(nonce) + block.getData());
+				.applySha256(block.getPreviousHash() + Long.toString(block.getDateTime()) + block.getData());
 		return calculatedhash;
 	}
 
@@ -34,8 +36,8 @@ public class ManagerBlock {
 		String hash = block.getHash();
 		
 		while (!hash.substring(0, difficulty).equals(target)) {
-			nonce++;
-			hash = calculateHash(block);
+			//nonce++;
+			hash = calculateHash(block, false);
 		}
 		
 		block.setHash(hash);
@@ -44,7 +46,7 @@ public class ManagerBlock {
 
 	public Block save(Block block, final int difficulty) {
 
-		block.setHash(calculateHash(block)); 
+		block.setHash(calculateHash(block, false)); 
 		mineBlock(block, difficulty);
 
 		return block;
@@ -60,14 +62,14 @@ public class ManagerBlock {
 		for(int i=1; i < blockchain.size(); i++) {
 			currentBlock = blockchain.get(i);
 			previousBlock = blockchain.get(i-1);
-			//compare registered hash and calculated hash:
-			if(!currentBlock.getHash().equals(calculateHash(currentBlock)) ){
-				System.out.println("Current Hashes not equal");			
-				return false;
-			}
 			//compare previous hash and registered previous hash
 			if(!previousBlock.getHash().equals(currentBlock.getPreviousHash()) ) {
 				System.out.println("Previous Hashes not equal");
+				return false;
+			}
+			//compare registered hash and calculated hash:
+			if(!currentBlock.getHash().equals(calculateHash(currentBlock, true)) ){
+				System.out.println("Current Hashes not equal");			
 				return false;
 			}
 			//check if hash is solved
