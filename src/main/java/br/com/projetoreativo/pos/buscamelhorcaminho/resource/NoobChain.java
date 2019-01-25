@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.projetoreativo.pos.buscamelhorcaminho.model.Block;
@@ -42,7 +43,7 @@ public class NoobChain {
 	@Autowired
 	private BlocksList blocksListPrinc;
 
-	@PostMapping(path = "/blockchair/valida", consumes = "application/json", produces = "application/json")
+	@PostMapping(path = "/valida", consumes = "application/json", produces = "application/json")
 	public ResponseEntity valida(@RequestBody BlockList blocksList) {
 		
 		Optional<BlockList> block = blocksListPrinc.findById(blocksList.getId());
@@ -53,7 +54,8 @@ public class NoobChain {
 		else
 			return ResponseEntity.ok(HttpStatus.NO_CONTENT);
 	}
-	@PostMapping(path = "/blockchair", consumes = "application/json", produces = "application/json")
+	@PostMapping(path = "/", consumes = "application/json", produces = "application/json")
+	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity adiciona(@RequestBody List<Block> blocksList) {
 
 		int randow = 3;//(int) Math.floor(Math.random() * (3 - 1 + 1)) + 1;
@@ -100,20 +102,26 @@ public class NoobChain {
 	}
 
 
-	@GetMapping(path = "/blockchair")
+	@GetMapping(path = "/")
 	public List<BlockList> lista() {
 		return blocksListPrinc.findAll();
 	}
 	
-	@GetMapping(path = "/blockchair/{id}")
+	@GetMapping(path = "/{id}")
 	public Optional<BlockList> obterBlockChair(@PathVariable Long id) {
 		
 		return blocksListPrinc.findById(id);
 	}
 	
-	@DeleteMapping(path = "/blockchair")
+	@DeleteMapping(path = "/")
 	public void delete(){
 		blocksListPrinc.deleteAll();
+	}
+	
+	@PutMapping(path = "/{id}")
+	public void atualiza(@PathVariable Long id, @Validated @RequestBody BlockList blocksList){
+		
+		blocksListPrinc.findById(blocksList.getId());
 	}
 	
 //	@PutMapping(path = "/blockchair/{id}")
