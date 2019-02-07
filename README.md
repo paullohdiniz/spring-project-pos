@@ -44,6 +44,9 @@ Criação da classe de Domain
 	- id
 	- nome
 
+- Validação do Bloco
+	Algoritmo capaz de validar o blockchair na classe ManagerBlock.
+
 ### Publicação na nuvem com HEROKU
 
 No projeto os seguintes comando:
