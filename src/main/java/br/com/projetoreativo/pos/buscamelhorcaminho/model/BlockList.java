@@ -14,12 +14,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.GenericGenerator;
-;
+
 /**
  * 
  * @author Paulo Diniz
  * 03-01-2019
- * Lista de Blocks
+ * Manager de Blocks
  */
 @Entity
 @Table(name = "block_list")
@@ -51,7 +51,7 @@ public class BlockList {
 	}
 
 	public String getNome() {
-		return nome;
+		return nome + "_" + id;
 	}
 
 	public void setNome(String nome) {

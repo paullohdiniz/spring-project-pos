@@ -5,14 +5,14 @@ import java.util.List;
 
 import br.com.projetoreativo.pos.buscamelhorcaminho.util.StringUtil;
 
-public class ManagerBlock {
+public class BlockBusiness {
 
 //	private String previousHash;
 //	private String data;
 //	public String hash;
-	private int nonce;
+//	private int nonce;
 
-	public ManagerBlock() {
+	public BlockBusiness() {
 
 	}
 
@@ -28,11 +28,9 @@ public class ManagerBlock {
 	}
 
 	public void mineBlock(Block block, int difficulty) {
-		String target = StringUtil.getDificultyString(difficulty); // Create a
-																	// string
-																	// with
-																	// difficulty
-																	// * "0"
+		
+		String target = StringUtil.getDificultyString(difficulty); 
+		
 		String hash = block.getHash();
 		
 		while (!hash.substring(0, difficulty).equals(target)) {
@@ -77,8 +75,10 @@ public class ManagerBlock {
 				System.out.println("This block hasn't been mined");
 				return false;
 			}
+			System.out.println("Validado Bloco: " +previousBlock.getId() + "/"+ previousBlock.getData());
 			
 		}
+		
 		return true;
 	}
 }

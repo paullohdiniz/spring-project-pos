@@ -29,13 +29,11 @@ public class Block {
 	@GenericGenerator(name = "increment", strategy = "increment")
 	private Integer id;
 	
-	@NotBlank
 	private String previousHash; 
 	
 	@NotBlank
 	private String data; 
 	
-	@NotBlank
 	private String hash;
 	
 	private Long dateTime;
@@ -89,11 +87,7 @@ public class Block {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((data == null) ? 0 : data.hashCode());
-		result = prime * result + ((dateTime == null) ? 0 : dateTime.hashCode());
-		result = prime * result + ((hash == null) ? 0 : hash.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((previousHash == null) ? 0 : previousHash.hashCode());
 		return result;
 	}
 
@@ -106,47 +100,14 @@ public class Block {
 		if (getClass() != obj.getClass())
 			return false;
 		Block other = (Block) obj;
-		if (data == null) {
-			if (other.data != null)
-				return false;
-		} else if (!data.equals(other.data))
-			return false;
-		if (dateTime == null) {
-			if (other.dateTime != null)
-				return false;
-		} else if (!dateTime.equals(other.dateTime))
-			return false;
-		if (hash == null) {
-			if (other.hash != null)
-				return false;
-		} else if (!hash.equals(other.hash))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (previousHash == null) {
-			if (other.previousHash != null)
-				return false;
-		} else if (!previousHash.equals(other.previousHash))
-			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Block [id=" + id + ", previousHash=" + previousHash + ", data=" + data + ", hash=" + hash
-				+ ", dateTime=" + dateTime + "]";
-	}
-
-//	public BlockList getBlockList() {
-//		return blockList;
-//	}
-//
-//	public void setBlockList(BlockList blockList) {
-//		this.blockList = blockList;
-//	}
-
+	
 		
 }

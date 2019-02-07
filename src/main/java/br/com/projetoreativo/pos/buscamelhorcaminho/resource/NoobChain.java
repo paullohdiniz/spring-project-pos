@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import javax.validation.Valid;
 
@@ -23,9 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.projetoreativo.pos.buscamelhorcaminho.model.Block;
 import br.com.projetoreativo.pos.buscamelhorcaminho.model.BlockList;
-import br.com.projetoreativo.pos.buscamelhorcaminho.model.ManagerBlock;
+import br.com.projetoreativo.pos.buscamelhorcaminho.model.BlockBusiness;
 import br.com.projetoreativo.pos.buscamelhorcaminho.repository.Blocks;
-import br.com.projetoreativo.pos.buscamelhorcaminho.repository.BlocksList;
+import br.com.projetoreativo.pos.buscamelhorcaminho.repository.BlockListRepository;
 
 
 
@@ -35,18 +36,18 @@ public class NoobChain {
 
 	public static int difficulty = 3;
 
-	private ManagerBlock managerBlock = new ManagerBlock();
+	private BlockBusiness managerBlock = new BlockBusiness();
 
 	@Autowired
 	private Blocks blocks;
 
 	@Autowired
-	private BlocksList blocksListPrinc;
+	private BlockListRepository blockListRepository;
 
 	@PostMapping(path = "/valida", consumes = "application/json", produces = "application/json")
 	public ResponseEntity valida(@RequestBody BlockList blocksList) {
 		
-		Optional<BlockList> block = blocksListPrinc.findById(blocksList.getId());
+		Optional<BlockList> block = blockListRepository.findById(blocksList.getId());
 		boolean isValido = managerBlock.isChainValid(block.get().getBlocks(), difficulty);
 		
 		if(isValido)
@@ -58,11 +59,14 @@ public class NoobChain {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity adiciona(@RequestBody List<Block> blocksList) {
 
-		int randow = 3;//(int) Math.floor(Math.random() * (3 - 1 + 1)) + 1;
-
+		//int randow = 3;//(int) Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+		
+		int randow = new Random().nextInt(10);
+		
 		Iterator<Block> blockIterator = blocksList.iterator();
 		List<Block> blockList = new ArrayList<>();
 		int count = 0;
+		//int countBlockManager = 1;
 		String previousHash = "0";
 		
 		while (blockIterator.hasNext()) {
@@ -80,11 +84,12 @@ public class NoobChain {
 			if(count == randow)
 			{
 				BlockList blockListPr = new BlockList();
-				blockListPr.setNome("BLOCK_CHAIR_" + count);
+				blockListPr.setNome("BLOCK_CHAIR");
 				blockListPr.setBlocks(blockList);
-				this.blocksListPrinc.save(blockListPr);
-				randow = (int) Math.floor(Math.random() * (30 - 1 + 1)) + 1;
+				this.blockListRepository.save(blockListPr);
+				randow = new Random().nextInt(10);
 				count = 0;
+				//countBlockManager++;
 				previousHash = "0";
 				blockList = new ArrayList<>();
 			}
@@ -92,36 +97,36 @@ public class NoobChain {
 		
 		if(count != randow){
 			BlockList blockListPr = new BlockList();
-			blockListPr.setNome("BLOCK_CHAIR_" + count);
+			blockListPr.setNome("BLOCK_CHAIR");
 			blockListPr.setBlocks(blockList);
-			this.blocksListPrinc.save(blockListPr);
+			this.blockListRepository.save(blockListPr);
 		}
 		
 		
-		return ResponseEntity.ok(HttpStatus.OK);
+		return ResponseEntity.ok(HttpStatus.CREATED);
 	}
 
 
 	@GetMapping(path = "/")
 	public List<BlockList> lista() {
-		return blocksListPrinc.findAll();
+		return blockListRepository.findAll();
 	}
 	
 	@GetMapping(path = "/{id}")
 	public Optional<BlockList> obterBlockChair(@PathVariable Long id) {
 		
-		return blocksListPrinc.findById(id);
+		return blockListRepository.findById(id);
 	}
 	
 	@DeleteMapping(path = "/")
 	public void delete(){
-		blocksListPrinc.deleteAll();
+		blockListRepository.deleteAll();
 	}
 	
 	@PutMapping(path = "/{id}")
 	public void atualiza(@PathVariable Long id, @Validated @RequestBody BlockList blocksList){
 		
-		blocksListPrinc.findById(blocksList.getId());
+		blockListRepository.findById(blocksList.getId());
 	}
 	
 //	@PutMapping(path = "/blockchair/{id}")
