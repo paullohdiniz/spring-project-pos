@@ -68,4 +68,5 @@ No projeto os seguintes comando:
 	
 [API-BUSCA-MELHOR-CAMINHO](https://api-busca-melhor-caminho.herokuapp.com/) - https://api-busca-melhor-caminho.herokuapp.com/
 
+By Paulo Diniz
 	
